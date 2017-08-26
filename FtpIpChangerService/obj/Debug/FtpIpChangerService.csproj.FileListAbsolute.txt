@@ -1,0 +1,8 @@
+C:\DEV\FtpIpChangerService\FtpIpChangerService\bin\Debug\FtpIpChangerService.exe.config
+C:\DEV\FtpIpChangerService\FtpIpChangerService\bin\Debug\FtpIpChangerService.exe
+C:\DEV\FtpIpChangerService\FtpIpChangerService\bin\Debug\FtpIpChangerService.pdb
+C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.csprojResolveAssemblyReference.cache
+C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.exe
+C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.pdb
+C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.ProjectInstaller.resources
+C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.csproj.GenerateResource.Cache
