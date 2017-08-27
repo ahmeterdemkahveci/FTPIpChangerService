@@ -14,11 +14,9 @@ namespace FtpIpChangerService
     {
         Runner ftpService = null;
 
-        public static string DirectoryPath = "directory";
+        public static string FTPUser = "FTPUser";
 
-        public static string FTPUser = "user";
-
-        public static string password = "password";
+        public static string password = "68861299";
 
         public Scheduler()
         {
@@ -35,8 +33,8 @@ namespace FtpIpChangerService
         {
             System.Diagnostics.Debugger.Launch();
             ftpService = new Runner();
-            ftpService.WriteLog();
-            bool ftpStatus = ftpService.checkFTPServerStatus(DirectoryPath,FTPUser,password);
+            ftpService.checkFTPServerSituation(FTPUser,password);
+            
 
         }
 

@@ -7,6 +7,8 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Web.Administration;
+using NLog;
 
 
 namespace FtpIpChangerService
@@ -14,13 +16,9 @@ namespace FtpIpChangerService
     public class Runner
     {
 
-        public void WriteLog()
-        {
-            createLogFile();
-            getIpAddress(NetworkInterfaceType.Wireless80211);
-        }
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private void createLogFile()
+        /*private string  createLogFile()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
@@ -30,14 +28,16 @@ namespace FtpIpChangerService
             {
                 File.Create(logFile);
             }
+            return logFile;
 
-        }
+        }*/
         private string  getIpAddress(NetworkInterfaceType _type)
         {
+            logger.Warn(DateTime.Today.ToShortTimeString()+":"+"Service gets IpAddress");
             string output = "";
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
-                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
+                if (item.NetworkInterfaceType == _type)
                 {
                     foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
                     {
@@ -48,25 +48,34 @@ namespace FtpIpChangerService
                     }
                 }
             }
+            logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "IpAddress is-->"+output);
             return output;
         }
 
-        public bool checkFTPServerStatus(string directoryPath, string ftpUser, string ftpPassword)
+        public void checkFTPServerSituation(string ftpUser,string password)
         {
-            bool IsExists = true;
+            string status = "";
             try
             {
-                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(directoryPath);
-                request.Credentials = new NetworkCredential(ftpUser, ftpPassword);
-                request.Method = WebRequestMethods.Ftp.PrintWorkingDirectory;
+                string wirelessIpAddress = getIpAddress(NetworkInterfaceType.Wireless80211);
+                logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "FTP Server Status is checked");
+                FtpWebRequest requestDir = (FtpWebRequest) WebRequest.Create("ftp://" + wirelessIpAddress);
+                requestDir.Credentials = new NetworkCredential(ftpUser, password);
 
-                FtpWebResponse response = (FtpWebResponse)request.GetResponse();
+                requestDir.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
+                FtpWebResponse response = (FtpWebResponse) requestDir.GetResponse();
+
             }
-            catch (WebException ex)
+            catch (WebException exception)
             {
-                IsExists = false;
-            }
-            return IsExists;
+                logger.Error(DateTime.Today.ToShortTimeString() + ":" + "FTP Server Status is down!!!");
+                sendEmail(status);
+            } 
+        }
+
+        private void sendEmail(string status)
+        {
+            logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "Mail is sending to receiver...");
         }
     }
 }
