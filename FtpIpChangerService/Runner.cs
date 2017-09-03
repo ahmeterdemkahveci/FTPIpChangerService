@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
@@ -15,8 +17,12 @@ namespace FtpIpChangerService
 {
     public class Runner
     {
-
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        //Smpt server
+        public const string HOTMAIL_SERVER = "smtp.live.com";
+        //Connecting port
+        public const int PORT = 465;
+
 
         /*private string  createLogFile()
         {
@@ -31,9 +37,9 @@ namespace FtpIpChangerService
             return logFile;
 
         }*/
-        private string  getIpAddress(NetworkInterfaceType _type)
+        private string getIpAddress(NetworkInterfaceType _type)
         {
-            logger.Warn(DateTime.Today.ToShortTimeString()+":"+"Service gets IpAddress");
+            logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "Service gets IpAddress");
             string output = "";
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
@@ -48,13 +54,12 @@ namespace FtpIpChangerService
                     }
                 }
             }
-            logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "IpAddress is-->"+output);
+            logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "IpAddress is-->" + output);
             return output;
         }
 
-        public void checkFTPServerSituation(string ftpUser,string password)
+        public void checkFTPServerSituation(string ftpUser, string password)
         {
-            string status = "";
             try
             {
                 string wirelessIpAddress = getIpAddress(NetworkInterfaceType.Wireless80211);
@@ -64,18 +69,40 @@ namespace FtpIpChangerService
 
                 requestDir.Method = WebRequestMethods.Ftp.ListDirectoryDetails;
                 FtpWebResponse response = (FtpWebResponse) requestDir.GetResponse();
-
             }
             catch (WebException exception)
             {
                 logger.Error(DateTime.Today.ToShortTimeString() + ":" + "FTP Server Status is down!!!");
-                sendEmail(status);
-            } 
+                sendEmail(false);
+            }
         }
 
-        private void sendEmail(string status)
+        private void sendEmail(bool status)
         {
             logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "Mail is sending to receiver...");
+            if (!status)
+            {
+               var smtpClient = setEmailCredentials();
+
+                MailMessage mailMessage = new MailMessage("tim_ahmet89@hotmail.com", "ahmeterdemkahveci@gmail.com");
+
+                mailMessage.Subject = "FTPIPDetector";
+
+                mailMessage.Body = "FTP Server Ip has been changed, please check when you arrive at home...";
+
+                smtpClient.Send(mailMessage);
+            }
+        }
+
+        private SmtpClient setEmailCredentials()
+        {
+            SmtpClient mailServer = new SmtpClient(HOTMAIL_SERVER);
+
+            mailServer.EnableSsl = true;
+
+            mailServer.Credentials = new NetworkCredential("tim_ahmet89@hotmail.com","AhmetErdem1");
+
+            return mailServer;
         }
     }
 }
