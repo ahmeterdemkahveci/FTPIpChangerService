@@ -7,3 +7,6 @@ C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.pdb
 C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.ProjectInstaller.resources
 C:\DEV\FtpIpChangerService\FtpIpChangerService\obj\Debug\FtpIpChangerService.csproj.GenerateResource.Cache
 C:\DEV\FtpIPChangerService\FtpIpChangerService\bin\Debug\Microsoft.Web.Administration.dll
+C:\DEV\FtpIPChangerService\FtpIpChangerService\bin\Debug\NLog.config
+C:\DEV\FtpIPChangerService\FtpIpChangerService\bin\Debug\NLog.dll
+C:\DEV\FtpIPChangerService\FtpIpChangerService\bin\Debug\NLog.xml

@@ -33,7 +33,7 @@ namespace FtpIpChangerService
         {
             System.Diagnostics.Debugger.Launch();
             ftpService = new Runner();
-            ftpService.checkFTPServerSituation(FTPUser,password);
+            ftpService.CheckFtpServerSituation(FTPUser,password);
             
 
         }

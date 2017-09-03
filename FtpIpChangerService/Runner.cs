@@ -58,7 +58,7 @@ namespace FtpIpChangerService
             return output;
         }
 
-        public void checkFTPServerSituation(string ftpUser, string password)
+        public void CheckFtpServerSituation(string ftpUser, string password)
         {
             try
             {
@@ -73,16 +73,16 @@ namespace FtpIpChangerService
             catch (WebException exception)
             {
                 logger.Error(DateTime.Today.ToShortTimeString() + ":" + "FTP Server Status is down!!!");
-                sendEmail(false);
+                SendEmail(false);
             }
         }
 
-        private void sendEmail(bool status)
+        private void SendEmail(bool status)
         {
             logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "Mail is sending to receiver...");
             if (!status)
             {
-               var smtpClient = setEmailCredentials();
+               var smtpClient = SetEmailCredentials();
 
                 MailMessage mailMessage = new MailMessage("tim_ahmet89@hotmail.com", "ahmeterdemkahveci@gmail.com");
 
@@ -94,7 +94,7 @@ namespace FtpIpChangerService
             }
         }
 
-        private SmtpClient setEmailCredentials()
+        private SmtpClient SetEmailCredentials()
         {
             SmtpClient mailServer = new SmtpClient(HOTMAIL_SERVER);
 

@@ -1,0 +1,6 @@
+2017-09-03 22:11:17.5988|WARN|FtpIpChangerService.Runner|00:00:Service gets IpAddress
+2017-09-03 22:11:25.2938|WARN|FtpIpChangerService.Runner|00:00:IpAddress is-->192.168.1.36
+2017-09-03 22:12:32.2512|WARN|FtpIpChangerService.Runner|00:00:FTP Server Status is checked
+2017-09-03 22:13:28.5928|WARN|FtpIpChangerService.Runner|00:00:Service gets IpAddress
+2017-09-03 22:13:30.2862|WARN|FtpIpChangerService.Runner|00:00:IpAddress is-->192.168.1.36
+2017-09-03 22:13:30.2902|WARN|FtpIpChangerService.Runner|00:00:FTP Server Status is checked
