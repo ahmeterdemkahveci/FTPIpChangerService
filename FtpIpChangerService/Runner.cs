@@ -23,20 +23,6 @@ namespace FtpIpChangerService
         //Connecting port
         public const int PORT = 465;
 
-
-        /*private string  createLogFile()
-        {
-            string currentDirectory = Directory.GetCurrentDirectory();
-
-            string logFile = currentDirectory + "\\logFile.txt";
-
-            if (!File.Exists(logFile))
-            {
-                File.Create(logFile);
-            }
-            return logFile;
-
-        }*/
         private string getIpAddress(NetworkInterfaceType _type)
         {
             logger.Warn(DateTime.Today.ToShortTimeString() + ":" + "Service gets IpAddress");
@@ -84,7 +70,7 @@ namespace FtpIpChangerService
             {
                var smtpClient = SetEmailCredentials();
 
-                MailMessage mailMessage = new MailMessage("tim_ahmet89@hotmail.com", "ahmeterdemkahveci@gmail.com");
+                MailMessage mailMessage = new MailMessage("sender", "receiver");
 
                 mailMessage.Subject = "FTPIPDetector";
 
@@ -100,7 +86,7 @@ namespace FtpIpChangerService
 
             mailServer.EnableSsl = true;
 
-            mailServer.Credentials = new NetworkCredential("tim_ahmet89@hotmail.com","AhmetErdem1");
+            mailServer.Credentials = new NetworkCredential("your_email_address","your_password");
 
             return mailServer;
         }
